@@ -6,13 +6,15 @@ router.get('/', function (req, res, next) {
   const isAuth = req.isAuthenticated();
   if (isAuth) {
     const userId = req.user.id;
+    console.log('///////////////////////////////')
+    console.log(userId)
     knex("tasks")
       .select("*")
-      .where({user_id: userId})
+      .where({ user_id: userId })
       .then(function (results) {
         res.render('index', {
           title: 'ToDo App',
-          todos: results,
+          todos: [],
           isAuth: isAuth,
         });
       })
@@ -25,6 +27,9 @@ router.get('/', function (req, res, next) {
         });
       });
   } else {
+    const userId = req.user.id;
+    console.log('///////////////////////////////')
+    console.log(userId)
     res.render('index', {
       title: 'ToDo App',
       isAuth: isAuth,
@@ -36,8 +41,10 @@ router.post('/', function (req, res, next) {
   const isAuth = req.isAuthenticated();
   const userId = req.user.id;
   const todo = req.body.add;
+  console.log('///////////////////////////////')
+  console.log(userId)
   knex("tasks")
-    .insert({user_id: userId, content: todo})
+    .insert({ user_id: userId, content: todo })
     .then(function () {
       res.redirect('/')
     })

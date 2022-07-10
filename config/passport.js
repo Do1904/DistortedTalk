@@ -9,6 +9,8 @@ const secret = "secretCuisine123";
 module.exports = function (app) {
     passport.serializeUser(function (user, done) {
         console.log("serializeUser");
+        console.log('///////////////////////////////')
+        console.log(user.id)
         done(null, user.id);
     });
 
@@ -16,6 +18,8 @@ module.exports = function (app) {
         console.log("deserializeUser");
         try {
             const user = User.findById(id);
+            console.log('///////////////////////////////')
+            console.log(user)
             done(null, user);
         } catch (error) {
             done(error, null);
